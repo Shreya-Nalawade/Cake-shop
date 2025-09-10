@@ -1,0 +1,62 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  background: #fffaf0;
+}
+header {
+  background: #ff6f61;
+  color: white;
+  padding: 15px;
+}
+header h1 {
+  margin: 0;
+}
+nav a {
+  color: white;
+  margin: 0 10px;
+  text-decoration: none;
+}
+h2 {
+  margin-top: 20px;
+}
+.cake-grid {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px;
+}
+.cake-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  background: white;
+  width: 200px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+.cake-card img {
+  width: 100%;
+  border-radius: 8px;
+}
+form {
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+input, button {
+  padding: 8px;
+  font-size: 16px;
+}
+button {
+  background: #ff6f61;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+button:hover {
+  background: #e65c50;
+}

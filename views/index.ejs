@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Cake Shop</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header>
+    <h1>🎂 Welcome to the Cake Shop</h1>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/upload">Add Cake</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Available Cakes</h2>
+    <div class="cake-grid">
+      <% cakes.forEach(cake => { %>
+        <div class="cake-card">
+          <img src="<%= cake.image %>" alt="<%= cake.name %>">
+          <h3><%= cake.name %></h3>
+        </div>
+      <% }) %>
+    </div>
+  </main>
+  <script src="/script.js"></script>
+</body>
+</html>
