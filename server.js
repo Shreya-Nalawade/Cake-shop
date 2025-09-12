@@ -26,8 +26,8 @@ const upload = multer({ storage });
 
 // Fake database
 let cakes = [
-  { name: "Chocolate Delight", image: "/uploads/chocolate.jpg" },
-  { name: "Strawberry Dream", image: "/uploads/strawberry.jpg" }
+  { name: "Chocolate Delight", image: "/uploads/chocolate.jpeg" },
+  { name: "Strawberry Dream", image: "/uploads/strawberry.jpeg" }
 ];
 
 // Routes
