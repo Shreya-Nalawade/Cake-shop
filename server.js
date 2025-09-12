@@ -3,27 +3,24 @@ const path = require("path");
 const multer = require("multer");
 const bodyParser = require("body-parser");
 const fs = require("fs");
-const sqlite3 = require("sqlite3").verbose();
+const Database = require("better-sqlite3");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
-
 const uploadDir = path.join(__dirname, "uploads");
 if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir);
-
 
 const dataDir = path.join(__dirname, "data");
 if (!fs.existsSync(dataDir)) fs.mkdirSync(dataDir);
 
 const dbPath = path.join(dataDir, "cake_shop.db");
-const db = new sqlite3.Database(dbPath);
+const db = new Database(dbPath);
 
-db.run(`
+db.prepare(`
   CREATE TABLE IF NOT EXISTS cakes (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
@@ -32,7 +29,7 @@ db.run(`
     inStock BOOLEAN NOT NULL,
     image TEXT NOT NULL
   )
-`);
+`).run();
 
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/uploads", express.static(uploadDir));
@@ -54,55 +51,42 @@ const upload = multer({
 
 
 
-
+// Homepage - list all cakes
 app.get("/", (req, res) => {
-  db.all("SELECT * FROM cakes", (err, rows) => {
-    if (err) {
-      console.error("Database fetch error:", err);
-      return res.status(500).send("Database error");
-    }
-    res.render("index", { cakes: rows });
-  });
+  const cakes = db.prepare("SELECT * FROM cakes").all();
+  res.render("index", { cakes });
 });
 
-
+// Upload page
 app.get("/upload", (req, res) => {
   res.render("upload");
 });
 
+// Upload cake
 app.post("/upload", upload.single("cakeImage"), (req, res) => {
   const { cakeName, cakePrice, cakeQuantity } = req.body;
-
-  if (!cakeName || !cakePrice || !cakeQuantity || !req.file) {
-    return res.redirect("/upload");
-  }
+  if (!cakeName || !cakePrice || !cakeQuantity || !req.file) return res.redirect("/upload");
 
   const imagePath = "/uploads/" + req.file.filename;
   const inStock = parseInt(cakeQuantity) > 0 ? 1 : 0;
 
-  db.run(
-    `INSERT INTO cakes (name, price, quantity, inStock, image) VALUES (?, ?, ?, ?, ?)`,
-    [cakeName, parseFloat(cakePrice), parseInt(cakeQuantity), inStock, imagePath],
-    function (err) {
-      if (err) {
-        console.error("Insert error:", err);
-        return res.status(500).send("Database insert error");
-      }
-      res.redirect("/");
-    }
-  );
-});
+  try {
+    db.prepare(
+      `INSERT INTO cakes (name, price, quantity, inStock, image) VALUES (?, ?, ?, ?, ?)`
+    ).run(cakeName, parseFloat(cakePrice), parseInt(cakeQuantity), inStock, imagePath);
 
+    res.redirect("/");
+  } catch (err) {
+    console.error("Insert error:", err);
+    res.status(500).send("Database insert error");
+  }
+});
 
 app.post("/delete/:id", (req, res) => {
   const cakeId = req.params.id;
 
-  db.get("SELECT image FROM cakes WHERE id = ?", [cakeId], (err, row) => {
-    if (err) {
-      console.error("Database fetch error:", err);
-      return res.status(500).send("Database error");
-    }
-
+  try {
+    const row = db.prepare("SELECT image FROM cakes WHERE id = ?").get(cakeId);
     if (row) {
       const imagePath = path.join(__dirname, row.image);
       fs.unlink(imagePath, (err) => {
@@ -110,16 +94,14 @@ app.post("/delete/:id", (req, res) => {
       });
     }
 
-    db.run("DELETE FROM cakes WHERE id = ?", [cakeId], (err) => {
-      if (err) {
-        console.error("Delete error:", err);
-        return res.status(500).send("Database delete error");
-      }
-      res.redirect("/");
-    });
-  });
+    db.prepare("DELETE FROM cakes WHERE id = ?").run(cakeId);
+    res.redirect("/");
+  } catch (err) {
+    console.error("Delete error:", err);
+    res.status(500).send("Database delete error");
+  }
 });
 
 app.listen(PORT, () => {
-  console.log(`Cake Shop running on http://localhost:${PORT}`);
+  console.log(`🍰 Cake Shop running on http://localhost:${PORT}`);
 });
