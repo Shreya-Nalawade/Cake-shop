@@ -6,8 +6,8 @@
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-  <h1>🍰 Welcome to Cake Shop</h1>
-  <a href="/upload">➕ Add New Cake</a>
+  <h1>Welcome to Cake Shop</h1>
+  <a href="/upload">Add New Cake</a>
 
   <div class="cake-list">
     <% cakes.forEach(cake => { %>
@@ -16,7 +16,7 @@
         <h2><%= cake.name %></h2>
         <p>💰 Price: ₹<%= cake.price %></p>
         <p>📦 Quantity: <%= cake.quantity %></p>
-        <p>Status: <%= cake.inStock ? "✅ In Stock" : "❌ Out of Stock" %></p>
+        <p>Status: <%= cake.inStock ? "In Stock" : "Out of Stock" %></p>
 
         <form action="/delete/<%= cake.id %>" method="POST">
           <button type="submit">🗑 Delete</button>
