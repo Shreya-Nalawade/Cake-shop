@@ -2,23 +2,34 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Add a Cake</title>
+  <title>Upload Cake</title>
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-  <header>
-    <h1>Upload a New Cake 🎂</h1>
-    <nav>
-      <a href="/">Home</a>
-    </nav>
-  </header>
+  <div class="upload-container">
+    <h1>➕ Add a New Cake</h1>
+    
+    <form action="/upload" method="POST" enctype="multipart/form-data" class="upload-form">
+      <label for="cakeName">Cake Name:</label>
+      <input type="text" name="cakeName" placeholder="Chocolate Delight" required>
 
-  <main>
-    <form action="/upload" method="POST" enctype="multipart/form-data">
-      <input type="text" name="cakeName" placeholder="Cake Name" required>
+      <label for="cakePrice">Price (₹):</label>
+      <input type="number" name="cakePrice" placeholder="250" required>
+
+      <label for="cakeQuantity">Quantity:</label>
+      <input type="number" name="cakeQuantity" placeholder="10" required>
+
+      <label for="cakeImage">Image:</label>
       <input type="file" name="cakeImage" accept="image/*" required>
-      <button type="submit">Upload Cake</button>
+
+      <img id="preview" class="image-preview" alt="Cake Preview">
+
+      <button type="submit">Upload</button>
     </form>
-  </main>
+
+    <a href="/" class="back-link">⬅ Back to Cakes</a>
+  </div>
+
+  <script src="/script.js"></script>
 </body>
 </html>

@@ -1,62 +1,178 @@
-body {
-  font-family: Arial, sans-serif;
+/* General Reset */
+* {
   margin: 0;
   padding: 0;
-  text-align: center;
-  background: #fffaf0;
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
 }
-header {
-  background: #ff6f61;
-  color: white;
-  padding: 15px;
-}
-header h1 {
-  margin: 0;
-}
-nav a {
-  color: white;
-  margin: 0 10px;
-  text-decoration: none;
-}
-h2 {
-  margin-top: 20px;
-}
-.cake-grid {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 20px;
+
+body {
+  background-color: #fffaf0;
+  color: #333;
   padding: 20px;
+  text-align: center;
 }
+
+/* Header */
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  color: #ff6f61;
+}
+
+/* Add New Cake Button */
+a {
+  display: inline-block;
+  text-decoration: none;
+  background-color: #ff6f61;
+  color: white;
+  padding: 10px 20px;
+  margin-bottom: 30px;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+a:hover {
+  background-color: #e65b50;
+}
+
+/* Cake List Container */
+.cake-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+  justify-items: center;
+}
+
+/* Cake Card Styling */
 .cake-card {
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 10px;
-  background: white;
-  width: 200px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  background-color: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  padding: 15px;
+  width: 220px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
+.cake-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
 .cake-card img {
-  width: 100%;
-  border-radius: 8px;
+  border-radius: 12px;
+  margin-bottom: 10px;
 }
-form {
-  margin: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  align-items: center;
+
+.cake-card h2 {
+  font-size: 1.4rem;
+  margin-bottom: 5px;
+  color: #ff6f61;
 }
-input, button {
-  padding: 8px;
-  font-size: 16px;
+
+.cake-card p {
+  margin: 5px 0;
+  font-size: 0.95rem;
 }
-button {
-  background: #ff6f61;
+
+/* Delete Button */
+.cake-card form button {
+  background-color: #ff4d4f;
   color: white;
   border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
 }
-button:hover {
-  background: #e65c50;
+
+.cake-card form button:hover {
+  background-color: #e04344;
+}
+/* Container */
+.upload-container {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 25px 30px;
+  background-color: #fffaf0;
+  border-radius: 15px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+/* Heading */
+.upload-container h1 {
+  color: #ff6f61;
+  margin-bottom: 20px;
+}
+
+/* Form Styling */
+.upload-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  text-align: left;
+}
+
+.upload-form label {
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.upload-form input[type="text"],
+.upload-form input[type="number"],
+.upload-form input[type="file"] {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  width: 100%;
+  font-size: 1rem;
+  transition: border 0.3s ease;
+}
+
+.upload-form input:focus {
+  border-color: #ff6f61;
+  outline: none;
+}
+
+/* Image Preview */
+.image-preview {
+  max-width: 100%;
+  border-radius: 12px;
+  margin-top: 10px;
+  display: none; /* Hidden initially, shown by JS */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* Submit Button */
+.upload-form button {
+  background-color: #ff6f61;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.upload-form button:hover {
+  background-color: #e65b50;
+}
+
+/* Back Link */
+.back-link {
+  display: inline-block;
+  margin-top: 20px;
+  text-decoration: none;
+  color: #ff6f61;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.back-link:hover {
+  color: #e65b50;
 }

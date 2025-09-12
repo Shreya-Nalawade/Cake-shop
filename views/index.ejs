@@ -6,25 +6,23 @@
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-  <header>
-    <h1>🎂 Welcome to the Cake Shop</h1>
-    <nav>
-      <a href="/">Home</a>
-      <a href="/upload">Add Cake</a>
-    </nav>
-  </header>
+  <h1>🍰 Welcome to Cake Shop</h1>
+  <a href="/upload">➕ Add New Cake</a>
 
-  <main>
-    <h2>Available Cakes</h2>
-    <div class="cake-grid">
-      <% cakes.forEach(cake => { %>
-        <div class="cake-card">
-          <img src="<%= cake.image %>" alt="<%= cake.name %>">
-          <h3><%= cake.name %></h3>
-        </div>
-      <% }) %>
-    </div>
-  </main>
-  <script src="/script.js"></script>
+  <div class="cake-list">
+    <% cakes.forEach(cake => { %>
+      <div class="cake-card">
+        <img src="<%= cake.image %>" alt="<%= cake.name %>" width="200">
+        <h2><%= cake.name %></h2>
+        <p>💰 Price: ₹<%= cake.price %></p>
+        <p>📦 Quantity: <%= cake.quantity %></p>
+        <p>Status: <%= cake.inStock ? "✅ In Stock" : "❌ Out of Stock" %></p>
+
+        <form action="/delete/<%= cake.id %>" method="POST">
+          <button type="submit">🗑 Delete</button>
+        </form>
+      </div>
+    <% }) %>
+  </div>
 </body>
 </html>
