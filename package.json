@@ -7,6 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
+  
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -17,6 +18,10 @@
     "express": "^5.1.0",
     "multer": "^2.0.2",
     "mysql2": "^3.14.5",
-    "sqlite3": "^5.1.7"
+    "sqlite3": "^5.1.7",
+     "engines": {
+    "node": "20.x"
   }
+  }
+ 
 }
