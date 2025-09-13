@@ -14,12 +14,12 @@
       <div class="cake-card">
         <img src="<%= cake.image %>" alt="<%= cake.name %>" width="200">
         <h2><%= cake.name %></h2>
-        <p>💰 Price: ₹<%= cake.price %></p>
-        <p>📦 Quantity: <%= cake.quantity %></p>
+        <p>Price: ₹<%= cake.price %></p>
+        <p>Quantity: <%= cake.quantity %></p>
         <p>Status: <%= cake.inStock ? "In Stock" : "Out of Stock" %></p>
 
         <form action="/delete/<%= cake.id %>" method="POST">
-          <button type="submit">🗑 Delete</button>
+          <button type="submit">Delete</button>
         </form>
       </div>
     <% }) %>
